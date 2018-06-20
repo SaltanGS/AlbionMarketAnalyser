@@ -8,6 +8,61 @@ require_once(__DIR__."/../config/databaseConfig.php");
 class Items {
 
 	/**
+	 * Get the most recent prices of all items, for all tiers and for all rarities if they are provided
+	 */
+	public static function getLatestPrices($items, $city, $tiers = null, $rarities = null) {
+
+		$dbConnection = new PDO("mysql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_BASE, DB_USER, DB_PASSWORD);
+		$selectStatement = $dbConnection->prepare("SELECT price FROM item_latest_price WHERE item_id = ? AND city = ?");
+
+		$prices = [];
+
+		foreach ($items as $item) {
+			if (!empty($tiers)) {
+				foreach ($tiers as $tier) {
+
+					$itemId = "T".$tier."_".$item;
+					$itemRarityString = '';
+
+					if (!empty($rarities)) {
+						foreach ($rarities as $rarity) {
+
+							if ($rarity > 0) {
+								if ($tier > 3) {
+									// Special case : resources
+									if (Resources::isResource($item)) {
+										$itemRarityString = Resources::RESOURCES_RARITY_KEY.$rarity;
+									}
+									$itemRarityString .= '@'.$rarity;
+								} else {
+									continue;
+								}
+							}
+
+							$selectStatement->execute([$itemId.$itemRarityString, $city]);
+							if($price = $selectStatement->fetchColumn()) {
+								$prices[$item][$tier][$rarity] = $price;
+							}
+						}
+					} else {
+						$selectStatement->execute([$itemId, $city]);
+						if($price = $selectStatement->fetchColumn()) {
+							$prices[$item][$tier] = $price;
+						}
+					}
+				}
+			} else {
+				$selectStatement->execute([$item, $city]);
+				if($price = $selectStatement->fetchColumn()) {
+					$prices[$item] = $price;
+				}
+			}
+		}
+
+		return $prices;
+	}
+
+	/**
 	 * Get the minimum and maximum price of a list of items over X days.
 	 */
 	public static function getMinMaxPrices($items, $days, $city) {
@@ -68,60 +123,5 @@ class Items {
 	   }
 
 	   return $stats;
-	}
-
-	/**
-	 * Get the most recent prices of all items, for all tiers and for all rarities if they are provided
-	 */
-	public static function getLatestPrices($items, $city, $tiers = null, $rarities = null) {
-
-	    $dbConnection = new PDO("mysql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_BASE, DB_USER, DB_PASSWORD);
-		$selectStatement = $dbConnection->prepare("SELECT price FROM item_latest_price WHERE item_id = ? AND city = ?");
-
-		$prices = [];
-
-		foreach ($items as $item) {
-			if (!empty($tiers)) {
-				foreach ($tiers as $tier) {
-
-					$itemId = "T".$tier."_".$item;
-
-					if (!empty($rarities)) {
-						foreach ($rarities as $rarity) {
-
-							// Prevent rarity call if tier > 0
-							if ($rarity > 0) {
-								if ($tier > 3) {
-									// Special case : resources
-									if (Resources::isResource($item)) {
-										$itemId .= Resources::RESOURCES_RARITY_KEY.$rarity;
-									}
-									$itemId .= '@'.$rarity;
-								} else {
-									continue;
-								}
-							}
-
-							$selectStatement->execute([$itemId, $city]);
-							if($price = $selectStatement->fetchColumn()) {
-								$prices[$item][$tier][$rarity] = $price;
-							}
-						}
-					} else {
-						$selectStatement->execute([$itemId, $city]);
-						if($price = $selectStatement->fetchColumn()) {
-							$prices[$item][$tier] = $price;
-						}
-					}
-				}
-			} else {
-				$selectStatement->execute([$item, $city]);
-				if($price = $selectStatement->fetchColumn()) {
-					$prices[$item] = $price;
-				}
-			}
-		}
-
-		return $prices;
 	}
 }

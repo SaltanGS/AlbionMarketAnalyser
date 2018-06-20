@@ -167,11 +167,12 @@ class Resources {
 							- ($resourcesCost*$resourcesUse + $refiningTaxe));
 
 						$return[$refinedResourceType][$tier][$rarity] = [
-							"raw_resource_cost" => $resourcesPrices[$rawResourceType][$tier][$rarity],
-							"refined_resource_cost" => $resourcesPrices[$refinedResourceType][($tier-1)][$rarity],
-							"selling_price" => $resourcesPrices[$refinedResourceType][$tier][$rarity],
+							"unit_raw_resource_cost" => $resourcesPrices[$rawResourceType][$tier][$rarity],
+							"unit_refined_resource_cost" => $resourcesPrices[$refinedResourceType][($tier-1)][$rarity],
+							"refined_selling_price" => $resourcesPrices[$refinedResourceType][$tier][$rarity],
 							"taxe" => $refiningTaxe,
-							"profit" => $profit
+							"profit" => $profit,
+							"profitable" => ($profit > 0) ? 'YES' : 'NO'
 						];
 					}
 				}
