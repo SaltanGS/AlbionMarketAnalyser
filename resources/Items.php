@@ -109,7 +109,7 @@ class Items {
 				$sellLevel = (100 - $sellRange);
 				$currentLevel = round(($currentPrice - $minPrice)*100 / $priceTotalRange);
 
-				$variation = round($priceTotalRange * 100 / $currentPrice);
+				$variation = round($priceTotalRange * 100 / $minPrice);
 
 				$action = ($variation > 10 && $currentLevel <= $buyLevel) ? 'Buy' : (($variation > 10 && $currentLevel >= $sellLevel) ? 'Sell' : 'Wait');
 
