@@ -9,7 +9,7 @@ class SimpleFront {
 	/**
 	* Generate a basic front from an array
 	*/
-	public static function printArray($title, $headers, $datas) {
+	public static function printRecursiveArray($title, $headers, $datas) {
 
 		echo '
 		   	<!doctype html>
@@ -48,29 +48,41 @@ class SimpleFront {
 					<table id="datatable" class="table table-striped table-bordered" style="width:100%">
 				        <thead>
 				            <tr>';
-
 					            foreach ($headers as $header) {
-					            	echo '<th>'.$header.'</th>';
+					            	echo "<th>".$header."</th>";
 					            }
-				            
-				            	echo '
-				            </tr>
+				            echo '</tr>
 				        </thead>
-			        	<tbody>';
-
-							foreach ($datas as $id => $data) {
-								echo '<tr class="dataline">';
-									echo '<td>'.$id.'</td>';
-								foreach ($data as $line) {
-									echo '<td>'.$line.'</td>';
-								}
-
-							}
-						echo '
+			        	<tbody>
+							'.static::getLines($datas).'
 						</tbody>
 					</table>
 				</body>
 			</html>
 		';
+	}
+
+	/**
+	* return a table line for each $datas line, with the key as first coll
+	*/
+	protected static function getLines($datas, $lineStart = '') {
+
+		$return = '';
+
+		foreach ($datas as $key => $line) {
+			$lineContent = "<td>".$key."</td>";
+
+			if (!is_array(current($line))) {
+				$return .= "<tr class=\"dataline\">".$lineStart.$lineContent;
+				foreach ($line as $lineValue) {
+					$return .= "<td>".$lineValue."</td>";
+				}
+				$return .= "</tr>";
+			} else {
+				$return .= static::getLines($line, $lineStart.$lineContent);
+			}
+		}
+
+		return $return;
 	}
 }

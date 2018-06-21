@@ -24,7 +24,7 @@ if (isset($_GET['noJson'])) {
 	Example : https://saltan.pouicou.fr/refining.php?noJson&rarity=2&focus&city=Martlock<br/>
 	<br/>
 	Data based on Albion Data Client : https://github.com/broderickhyman/albiondata-client';
-	echo "<pre>".print_r($refiningProfits, true)."</pre>";
+	SimpleFront::printRecursiveArray('Refining profit finder', ['Item', 'Tier', 'Rarity', 'Raw resource', 'T-1 refined resource', 'Selling price', 'Taxe', 'Profit', 'Profitable ?'], $refiningProfits);
 } else {
 	print_r(json_encode($refiningProfits));
 }
