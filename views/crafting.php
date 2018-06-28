@@ -41,7 +41,7 @@
 						foreach ($tiers as $tier => $rarities) {
 							foreach ($rarities as $rarity => $itemsType) {
 								foreach ($itemsType as $itemType => $itemsInfos) {
-									echo '<tr><td>'.$itemGroup.'_'.$tier.'_'.$rarity.'</td><td>'.$itemType.'</td><td>'.$itemsInfos['name'].'</td><td>'.$itemsInfos['price'].'</td></tr>';
+									echo '<tr class="dataline"><td>'.$itemGroup.'_'.$tier.'_'.$rarity.'</td><td>'.$itemType.'</td><td>'.$itemsInfos['name'].'</td><td>'.$itemsInfos['price'].'</td></tr>';
 								}
 							}
 						}
