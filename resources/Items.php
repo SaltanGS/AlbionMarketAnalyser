@@ -124,4 +124,32 @@ class Items {
 
 	   return $stats;
 	}
+
+	/**
+	 * Get the minimum and maximum price of a list of items over X days.
+	 */
+	public static function getMostValuableItem($itemGroups, $city, $tiers, $rarities) {
+
+		$return = [];
+
+		foreach ($itemGroups as $itemGroup => $itemsType) {
+			foreach ($itemsType as $itemsType => $itemsList) {
+				$prices = static::getLatestPrices($itemsList, $city, $tiers, $rarities);
+
+				foreach ($itemsList as $item) {
+					foreach ($tiers as $tier) {
+						foreach ($rarities as $rarity) {
+							if (!isset($return[$itemGroup][$tier][$rarity][$itemsType])
+								|| $return[$itemGroup][$tier][$rarity][$itemsType]['price'] < $prices[$item][$tier][$rarity]) {
+								$return[$itemGroup][$tier][$rarity][$itemsType]['name'] = $item;
+								$return[$itemGroup][$tier][$rarity][$itemsType]['price'] = $prices[$item][$tier][$rarity];
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return $return;
+	}
 }

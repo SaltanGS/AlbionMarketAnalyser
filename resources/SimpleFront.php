@@ -7,6 +7,15 @@
 class SimpleFront {
 
 	/**
+	* Call template
+	*/
+	public static function printTemplate($name, $data) {
+		ob_start();
+		include(__DIR__."/../views/".$name.'.php');
+		ob_end_flush();
+	}
+
+	/**
 	* Generate a basic front from an array
 	*/
 	public static function printRecursiveArray($title, $headers, $datas) {
