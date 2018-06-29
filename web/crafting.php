@@ -36,7 +36,7 @@ $data['title'] = "Crafting guide";
 // Get prices
 $data['mostValuableItems'] = Items::getMostValuableItem($items, $city, $tiers, $rarities);
 
-if (!isset($_GET['noJson'])) {
+if (isset($_GET['noJson'])) {
 	SimpleFront::printTemplate('crafting', $data);
 } else {
 	print_r(json_encode($stats));

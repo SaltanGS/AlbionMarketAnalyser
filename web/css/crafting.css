@@ -1,0 +1,8 @@
+#mostValuableItemsTable img {
+    height: 5em;
+}
+
+#mostValuableItemsTable td {
+	padding: 0;
+    vertical-align: middle;
+}

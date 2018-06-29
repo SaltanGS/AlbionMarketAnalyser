@@ -7,6 +7,7 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="css/crafting.css">
 
 		<title>Albion Market Manager</title>
 	</head>
@@ -22,7 +23,7 @@
 			$(document).ready(function(){
 				$("#search").on("keyup", function() {
 					var value = $(this).val().toLowerCase();
-					$("#datatable .dataline").filter(function() {
+					$("#mostValuableItemsTable .dataline").filter(function() {
 						$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 					});
 				});
@@ -31,7 +32,7 @@
 
 		<p>Filter : <input type="text" id="search"></p>
 
-		<table id="datatable" class="table table-striped table-bordered" style="width:100%">
+		<table id="mostValuableItemsTable" class="table table-striped table-bordered" style="width:100%">
 			<thead>
 				<tr><th>Groupe</th><th>Type</th><th>Name</th><th>Price</th></tr>
 			</thead>
@@ -41,7 +42,13 @@
 						foreach ($tiers as $tier => $rarities) {
 							foreach ($rarities as $rarity => $itemsType) {
 								foreach ($itemsType as $itemType => $itemsInfos) {
-									echo '<tr class="dataline"><td>'.$itemGroup.'_'.$tier.'_'.$rarity.'</td><td>'.$itemType.'</td><td>'.$itemsInfos['name'].'</td><td>'.$itemsInfos['price'].'</td></tr>';
+									echo '
+										<tr class="dataline">
+											<td><img src="'.Resources::getIcon($itemGroup, $tier, $rarity).'"/>'.$itemGroup.'_'.$tier.'_'.$rarity.'</td>
+											<td>'.$itemType.'</td>
+											<td><img src="'.Items::getIcon($itemsInfos['name'], $tier, $rarity).'"/>'.$itemsInfos['name'].'</td>
+											<td>'.$itemsInfos['price'].'</td>
+										</tr>';
 								}
 							}
 						}

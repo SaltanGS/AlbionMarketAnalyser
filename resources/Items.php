@@ -8,6 +8,20 @@ require_once(__DIR__."/../config/databaseConfig.php");
 class Items {
 
 	/**
+	 * Get item icon
+	 */
+	public static function getIcon($item, $tier, $rarity) {
+
+		$baseUrl = 'https://gameinfo.albiononline.com/api/gameinfo/items/';
+
+		if ($rarity > 0 && $rarity <= 3) {
+			$item .= '@'.$rarity;
+		}
+
+		return $baseUrl.'T'.$tier.'_'.$item.'.png';
+	}
+
+	/**
 	 * Get the most recent prices of all items, for all tiers and for all rarities if they are provided
 	 */
 	public static function getLatestPrices($items, $city, $tiers = null, $rarities = null) {
@@ -139,6 +153,9 @@ class Items {
 				foreach ($itemsList as $item) {
 					foreach ($tiers as $tier) {
 						foreach ($rarities as $rarity) {
+							if ($itemsType === 'ARMOR' ) {
+								$prices[$item][$tier][$rarity] = round($prices[$item][$tier][$rarity]/2);
+							}
 							if (!isset($return[$itemGroup][$tier][$rarity][$itemsType])
 								|| $return[$itemGroup][$tier][$rarity][$itemsType]['price'] < $prices[$item][$tier][$rarity]) {
 								$return[$itemGroup][$tier][$rarity][$itemsType]['name'] = $item;

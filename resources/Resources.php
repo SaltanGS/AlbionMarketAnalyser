@@ -24,6 +24,20 @@ class Resources {
 	}
 
 	/**
+	 * Get resource icon
+	 */
+	public static function getIcon($resource, $tier, $rarity) {
+
+		$baseUrl = 'https://s3-us-west-2.amazonaws.com/ao2d/images/items/';
+
+		if ($rarity > 0 && $rarity <= 3) {
+			$resource .= '_LEVEL'.$rarity;
+		}
+
+		return $baseUrl.'T'.$tier.'_'.$resource.'.png';
+	}
+
+	/**
 	 * Return raw and refined resources
 	 */
 	public static function getResourcesList() {
