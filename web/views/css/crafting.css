@@ -1,8 +1,22 @@
-#mostValuableItemsTable img {
+img {
     height: 5em;
+}
+
+img.selected {
 }
 
 #mostValuableItemsTable td {
 	padding: 0;
     vertical-align: middle;
+}
+
+.filter label > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+label > input + img{ /* IMAGE STYLES */
+    border-style: none;
+}
+label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+    border-style: inset;
 }

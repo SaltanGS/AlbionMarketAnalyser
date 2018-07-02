@@ -28,9 +28,40 @@
 					});
 				});
 			});
+			$(document).ready(function(){
+				$("input[name=resourceFilter]").on("change", function() {
+					var resource = this.value;
+					$("#mostValuableItemsTable .dataline").each(function() {
+						if ($(this).text().indexOf(resource) > -1) {
+							$(this).show();
+						} else {
+							$(this).hide();
+						}
+					});
+				});
+			});
 		</script>
 
-		<p>Filter : <input type="text" id="search"></p>
+		<p class="filter">
+			Filter : <input type="text" id="search"> --
+			<label>
+			  <input type="radio" name="resourceFilter" value="PLANKS" />
+			  <img name="PLANKS" src="<?= Resources::getIcon('PLANKS', 8, 0) ?>"/>
+			</label>
+			<label>
+			  <input type="radio" name="resourceFilter" value="CLOTH" />
+			  <img name="CLOTH" src="<?= Resources::getIcon('CLOTH', 8, 0) ?>"/>
+			</label>
+			<label>
+			  <input type="radio" name="resourceFilter" value="LEATHER" />
+			  <img name="LEATHER" src="<?= Resources::getIcon('LEATHER', 8, 0) ?>"/>
+			</label>
+			<label>
+			  <input type="radio" name="resourceFilter" value="PLATE" />
+			  <img name="METALBAR" src="<?= Resources::getIcon('METALBAR', 8, 0) ?>"/>
+			</label>
+			<!-- <img class="rarityFilter" name="_R0" src="<?= Items::getIcon('OFF_ORB_MORGANA', 8, 0) ?>"/><img class="rarityFilter" name="_R1" src="<?= Items::getIcon('OFF_ORB_MORGANA', 8, 1) ?>"/> -->
+		</p>
 
 		<table id="mostValuableItemsTable" class="table table-striped table-bordered" style="width:100%">
 			<thead>
@@ -44,7 +75,7 @@
 								foreach ($itemsType as $itemType => $itemsInfos) {
 									echo '
 										<tr class="dataline">
-											<td><img src="'.Resources::getIcon($itemGroup, $tier, $rarity).'"/>'.$itemGroup.'_'.$tier.'_'.$rarity.'</td>
+											<td><img src="'.Resources::getIcon($itemGroup, $tier, $rarity).'"/>'.$itemGroup.'_T'.$tier.'_R'.$rarity.'</td>
 											<td>'.$itemType.'</td>
 											<td><img src="'.Items::getIcon($itemsInfos['name'], $tier, $rarity).'"/>'.$itemsInfos['name'].'</td>
 											<td>'.$itemsInfos['price'].'</td>
