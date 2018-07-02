@@ -10,7 +10,7 @@ class Resources {
 	/**
 	 * Return raw resources with their corresponding refining counterpart
 	 */
-	public static function getResources() {
+	public static function getResourcesList() {
 
 		$resourcesTypes = [
 			"WOOD" => "PLANKS",
@@ -40,9 +40,9 @@ class Resources {
 	/**
 	 * Return raw and refined resources
 	 */
-	public static function getResourcesList() {
+	public static function getResourcesFullList() {
 
-		$resources = static::getResources();
+		$resources = static::getResourcesList();
 
 		$resourceList = array_merge(array_keys($resources), $resources);
 
@@ -54,17 +54,21 @@ class Resources {
 	 */
 	public static function isResource($resource) {
 
-		return in_array($resource, static::getResourcesList());
+		return in_array($resource, static::getResourcesFullList());
 	}
 
 	/**
-	 * Return raw and refined resources by tier and rarity
+	 * Return raw or/and refined resources by tier and rarity
 	 */
-	public static function getResourcesEnumeration($tiers, $rarities) {
+	public static function getResourcesEnumeration($tiers, $rarities, $refinedOnly) {
 
 		$enumeration = [];
 
-		$resourcesTypes = static::getResourcesList();
+		if($refinedOnly) {
+			$resourcesTypes = static::getResourcesList();
+		} else {
+			$resourcesTypes = static::getResourcesFullList();
+		}
 
 		foreach ($tiers as $tier) {
 			foreach ($rarities as $rarity) {
@@ -88,7 +92,7 @@ class Resources {
 	 */
 	public static function getResourcesLatestPrices($city, $tiers = null, $rarities = null) {
 
-	    return Items::getLatestPrices(static::getResourcesList(), $city, $tiers, $rarities);
+	    return Items::getLatestPrices(static::getResourcesFullList(), $city, $tiers, $rarities);
 	}
 
 	/**
@@ -106,7 +110,7 @@ class Resources {
 
 		// Special case : T3 doesn't have a rarity but we fake it to keep the algorithm simple
 	   	// T1 is set to 0 to emulate the fact that T2 do not require T1 to be refined.
-	   	foreach (static::getResourcesList() as $resourceType) {
+	   	foreach (static::getResourcesFullList() as $resourceType) {
 			$resourcesPrices[$resourceType][1][0] = 0;
 			$resourcesPrices[$resourceType][1][1] = 0;
 			$resourcesPrices[$resourceType][1][2] = 0;
@@ -166,7 +170,7 @@ class Resources {
 				]
 		];
 
-	   	foreach (static::getResources() as $rawResourceType => $refinedResourceType) {
+	   	foreach (static::getResourcesList() as $rawResourceType => $refinedResourceType) {
 		   	foreach ($tiers as $tier) {
 				foreach($rarities as $rarity) {
 		   			if (isset($resourcesPrices[$rawResourceType][$tier][$rarity]) && isset($resourcesPrices[$refinedResourceType][$tier][$rarity]) && isset($resourcesPrices[$refinedResourceType][($tier-1)][$rarity])) {

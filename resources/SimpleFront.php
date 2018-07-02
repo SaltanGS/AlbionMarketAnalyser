@@ -11,7 +11,7 @@ class SimpleFront {
 	*/
 	public static function printTemplate($name, $data) {
 		ob_start();
-		include(__DIR__."/../views/".$name.'.php');
+		include(__DIR__."/views/".$name.'.php');
 		ob_end_flush();
 	}
 

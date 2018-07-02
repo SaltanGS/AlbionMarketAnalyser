@@ -9,9 +9,10 @@ require_once(__DIR__."/../resources/Autoloader.php");
 $rarities = isset($_GET['rarity']) ? [$_GET['rarity']] : [0, 1] ;
 $days = isset($_GET['days']) ? $_GET['days'] : 5;
 $city = isset($_GET['city']) ? $_GET['city'] : "Caerleon";
+$refinedOnly = isset($_GET['refined']);
 $tiers = [3, 4, 5, 6, 7, 8];
 
-$resourcesEnum = Resources::getResourcesEnumeration($tiers, $rarities);
+$resourcesEnum = Resources::getResourcesEnumeration($tiers, $rarities, $refinedOnly);
 
 // Get prices
 $minMaxPrices = Items::getMinMaxPrices($resourcesEnum, $days, $city);
