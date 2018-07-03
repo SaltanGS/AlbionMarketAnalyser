@@ -140,7 +140,7 @@ class Items {
 	}
 
 	/**
-	 * Get the minimum and maximum price of a list of items over X days.
+	 * Get the prices of all items for each itemGroups, order by prices
 	 */
 	public static function getMostValuableItem($itemGroups, $city, $tiers, $rarities) {
 
@@ -150,23 +150,31 @@ class Items {
 			foreach ($itemsType as $itemsType => $itemsList) {
 				$prices = static::getLatestPrices($itemsList, $city, $tiers, $rarities);
 
-				foreach ($itemsList as $item) {
-					foreach ($tiers as $tier) {
-						foreach ($rarities as $rarity) {
+				foreach ($tiers as $tier) {
+					foreach ($rarities as $rarity) {
+						$return[$itemGroup][$tier][$rarity][$itemsType] = [];
+						foreach ($itemsList as $item) {
+							$itemPrice = $prices[$item][$tier][$rarity];
 							if ($itemsType === 'ARMOR' ) {
-								$prices[$item][$tier][$rarity] = round($prices[$item][$tier][$rarity]/2);
+								$itemPrice = round($itemPrice/2);
 							}
-							if (!isset($return[$itemGroup][$tier][$rarity][$itemsType])
-								|| $return[$itemGroup][$tier][$rarity][$itemsType]['price'] < $prices[$item][$tier][$rarity]) {
-								$return[$itemGroup][$tier][$rarity][$itemsType]['name'] = $item;
-								$return[$itemGroup][$tier][$rarity][$itemsType]['price'] = $prices[$item][$tier][$rarity];
+							// Add the item at the begining of the array
+							array_unshift($return[$itemGroup][$tier][$rarity][$itemsType], ['name' => $item, 'price' => $itemPrice]);
+							// Sort array by price desc
+							foreach ($return[$itemGroup][$tier][$rarity][$itemsType] as $key => $itemData) {
+								if (isset($return[$itemGroup][$tier][$rarity][$itemsType][$key+1]) and
+									$return[$itemGroup][$tier][$rarity][$itemsType][$key+1]['price'] > $itemPrice) {
+									// Swap both value
+									$tmp = $return[$itemGroup][$tier][$rarity][$itemsType][$key];
+									$return[$itemGroup][$tier][$rarity][$itemsType][$key] = $return[$itemGroup][$tier][$rarity][$itemsType][$key+1];
+									$return[$itemGroup][$tier][$rarity][$itemsType][$key+1] = $tmp;
+								}
 							}
 						}
 					}
 				}
 			}
 		}
-
 		return $return;
 	}
 }
