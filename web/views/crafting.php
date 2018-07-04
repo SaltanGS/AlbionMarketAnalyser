@@ -77,7 +77,7 @@
 			  <img name="LEATHER" src="<?= Resources::getIcon('LEATHER', 8, 0) ?>" />
 			</label>
 			<label>
-			  <input type="radio" name="resourceFilter" value="PLATE" />
+			  <input type="radio" name="resourceFilter" value="METALBAR" />
 			  <img name="METALBAR" src="<?= Resources::getIcon('METALBAR', 8, 0) ?>" />
 			</label>
 			--
