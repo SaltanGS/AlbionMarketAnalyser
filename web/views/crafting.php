@@ -143,5 +143,15 @@
 				?>
 			</tbody>
 		</table>
+
+		<p>Journals price :<br/>
+			T2 : 370<br/>
+			T3 : 740<br/>
+			T4 : 1480<br/>
+			T5 : 2960<br/>
+			T6 : 5920<br/>
+			T7 : 11840<br/>
+			T8 : 23680<br/>
+		</p>
 	</body>
 </html>
