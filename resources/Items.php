@@ -122,7 +122,7 @@ class Items {
 				$buyLevel = $buyRange;
 				$sellLevel = (100 - $sellRange);
 				$currentLevel = round(($currentPrice - $minPrice)*100 / $priceTotalRange);
-				$maxBuyPrice = round($minPrice*(100+$buyRange));
+				$maxBuyPrice = round($minPrice*(100+$buyRange)/100);
 
 				$variation = round($priceTotalRange * 100 / $minPrice);
 
