@@ -129,6 +129,7 @@ class Items {
 				$action = ($variation > 10 && $currentLevel <= $buyLevel) ? 'Buy' : (($variation > 10 && $currentLevel >= $sellLevel) ? 'Sell' : 'Wait');
 
 				$stats[$itemCode]['currentPrice'] = $currentPrice;
+				$stats[$itemCode]['multiplePrices'] = $currentPrice * 8.' - '.$currentPrice * 16.' - '.$currentPrice * 32;
 				$stats[$itemCode]['minPrice'] = $minPrice;
 				$stats[$itemCode]['maxPrice'] = $maxPrice;
 				$stats[$itemCode]['variation'] = $variation.'%';

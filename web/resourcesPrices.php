@@ -19,7 +19,7 @@ $minMaxPrices = Items::getMinMaxPrices($resourcesEnum, $days, $city);
 $stats = Items::getPricesStats($minMaxPrices);
 
 if (isset($_GET['noJson'])) {
-	SimpleFront::printRecursiveArray('Prices tracking on '.$days.' days', ['Item', 'Actual price', 'Min price', 'Max price', 'Range', 'Current level', 'Max Buy Price', 'action'], $stats);
+	SimpleFront::printRecursiveArray('Prices tracking on '.$days.' days', ['Item', '8 - 16 - 32', 'Actual price', 'Min price', 'Max price', 'Range', 'Current level', 'Max Buy Price', 'action'], $stats);
 } else {
 	print_r(json_encode($stats));
 }
