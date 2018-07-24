@@ -127,7 +127,7 @@
 							foreach ($rarities as $rarity => $itemsInfos) {
 								echo '
 									<tr class="dataline">
-										<td><img src="'.Items::getIcon($itemName, $tier, $rarity).'"/></td>
+										<td><img src="'.Items::getIcon($itemName, $tier, $rarity).'"/>'.$itemName.'_T'.$tier.'_R'.$rarity.'</td>
 										<td>'.number_format($itemsInfos['sellingPrice'], 0, '.', ' ').'</td>
 										<td>'.number_format($itemsInfos['craftingCost'], 0, '.', ' ').'</td>
 										<td>'.number_format($itemsInfos['rawProfit'], 0, '.', ' ').'</td>
