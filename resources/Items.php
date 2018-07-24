@@ -192,7 +192,7 @@ class Items {
 	 * Get the crafting profit for all items
 	 */
 	public static function getCraftingProfits($itemGroup, $city, $tiers, $rarities, $focus = false) {
-		$return = [];echo '<pre>';
+		$return = [];
 
 		$recipes = CraftingRecipes::getRecipeList($itemGroup);
 
