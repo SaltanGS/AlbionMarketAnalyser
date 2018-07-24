@@ -1,4 +1,9 @@
 <?php
+
+// Set error display
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+
 /**
  * This page calculate all refining price and display all the informations used to calculed it.
  */
