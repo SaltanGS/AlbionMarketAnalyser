@@ -162,20 +162,22 @@ class Items {
 					foreach ($rarities as $rarity) {
 						$return[$itemGroup][$tier][$rarity][$itemsType] = [];
 						foreach ($itemsList as $item) {
-							$itemPrice = $prices[$item][$tier][$rarity];
-							if ($itemsType === 'ARMOR' ) {
-								$itemPrice = round($itemPrice/2);
-							}
-							// Add the item at the begining of the array
-							array_unshift($return[$itemGroup][$tier][$rarity][$itemsType], ['name' => $item, 'price' => $itemPrice]);
-							// Sort array by price desc
-							foreach ($return[$itemGroup][$tier][$rarity][$itemsType] as $key => $itemData) {
-								if (isset($return[$itemGroup][$tier][$rarity][$itemsType][$key+1]) and
-									$return[$itemGroup][$tier][$rarity][$itemsType][$key+1]['price'] > $itemPrice) {
-									// Swap both value
-									$tmp = $return[$itemGroup][$tier][$rarity][$itemsType][$key];
-									$return[$itemGroup][$tier][$rarity][$itemsType][$key] = $return[$itemGroup][$tier][$rarity][$itemsType][$key+1];
-									$return[$itemGroup][$tier][$rarity][$itemsType][$key+1] = $tmp;
+							if (isset($prices[$item][$tier][$rarity])) {
+								$itemPrice = $prices[$item][$tier][$rarity];
+								if ($itemsType === 'ARMOR' ) {
+									$itemPrice = round($itemPrice/2);
+								}
+								// Add the item at the begining of the array
+								array_unshift($return[$itemGroup][$tier][$rarity][$itemsType], ['name' => $item, 'price' => $itemPrice]);
+								// Sort array by price desc
+								foreach ($return[$itemGroup][$tier][$rarity][$itemsType] as $key => $itemData) {
+									if (isset($return[$itemGroup][$tier][$rarity][$itemsType][$key+1]) and
+										$return[$itemGroup][$tier][$rarity][$itemsType][$key+1]['price'] > $itemPrice) {
+										// Swap both value
+										$tmp = $return[$itemGroup][$tier][$rarity][$itemsType][$key];
+										$return[$itemGroup][$tier][$rarity][$itemsType][$key] = $return[$itemGroup][$tier][$rarity][$itemsType][$key+1];
+										$return[$itemGroup][$tier][$rarity][$itemsType][$key+1] = $tmp;
+									}
 								}
 							}
 						}
@@ -185,4 +187,57 @@ class Items {
 		}
 		return $return;
 	}
+
+	/**
+	 * Get the crafting profit for all items
+	 */
+	public static function getCraftingProfits($itemGroup, $city, $tiers, $rarities, $focus = false) {
+		$return = [];echo '<pre>';
+
+		$recipes = CraftingRecipes::getRecipeList($itemGroup);
+
+		$resourcesPrices = Resources::getRefinedResourcesLatestPrices($city, $tiers, $rarities);
+
+		foreach ($recipes as $itemGroupName => $itemGroup) {
+			foreach ($itemGroup as $groupName => $items) {
+
+				$itemsPrices = static::getLatestPrices(array_keys($items), $city, $tiers, $rarities);
+				foreach ($items as $itemName => $resources) {
+					// Resources : ['PLANKS', 'METALBAR', 'LEATHER', 'CLOTH', 'STONEBLOCK']
+
+					foreach ($tiers as $tier) {
+						foreach ($rarities as $rarity) {
+
+							if(isset($itemsPrices[$itemName][$tier][$rarity]) && isset($resourcesPrices['PLANKS'][$tier][$rarity]) && isset($resourcesPrices['METALBAR'][$tier][$rarity]) && isset($resourcesPrices['LEATHER'][$tier][$rarity]) && isset($resourcesPrices['CLOTH'][$tier][$rarity]) && isset($resourcesPrices['STONEBLOCK'][$tier][$rarity])) {
+								$sellingPrice = $itemsPrices[$itemName][$tier][$rarity];
+								$resourcesCost =
+									$resourcesPrices['PLANKS'][$tier][$rarity]*$resources[0]
+									+ $resourcesPrices['METALBAR'][$tier][$rarity]*$resources[1]
+									+ $resourcesPrices['LEATHER'][$tier][$rarity]*$resources[2]
+									+ $resourcesPrices['CLOTH'][$tier][$rarity]*$resources[3]
+									+ $resourcesPrices['STONEBLOCK'][$tier][$rarity]*$resources[4];
+
+								if ($focus) {
+									$craftingCost = $resourcesCost * 0.65;
+								} else {
+									$craftingCost = $resourcesCost * 0.85;
+								}
+								$rawProfit = $sellingPrice - $craftingCost * 0.85;
+								$result = ($rawProfit > 0) ? 'Profit' : 'Loss';
+
+								$return[$itemName][$tier][$rarity]['sellingPrice'] = $sellingPrice;
+								$return[$itemName][$tier][$rarity]['craftingCost'] = $craftingCost;
+								$return[$itemName][$tier][$rarity]['rawProfit'] = $rawProfit;
+								$return[$itemName][$tier][$rarity]['percentProfit'] = ($rawProfit*100 / $sellingPrice);
+								$return[$itemName][$tier][$rarity]['result'] = $result;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return $return;
+	}
+
 }

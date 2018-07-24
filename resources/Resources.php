@@ -96,6 +96,14 @@ class Resources {
 	}
 
 	/**
+	 * Get the most recent prices of refined resources, for all tiers and for all rarities if they are provided
+	 */
+	public static function getRefinedResourcesLatestPrices($city, $tiers = null, $rarities = null) {
+
+	    return Items::getLatestPrices(static::getResourcesList(), $city, $tiers, $rarities);
+	}
+
+	/**
 	* Calculate full refining profit assuming the resources returned after first refining are sold back to their buying price
 	* $tiers = [1, 3, 5]
 	* $rarities = [0, 1, 2, 3]

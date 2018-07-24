@@ -2,7 +2,7 @@ img {
     height: 4em;
 }
 
-#mostValuableItemsTable td {
+#mainTable td {
 	padding: 0;
     vertical-align: middle;
 }

@@ -11,7 +11,6 @@ require_once(__DIR__."/../resources/Autoloader.php");
  */
 
 $rarities = isset($_GET['rarity']) ? [$_GET['rarity']] : [0, 1] ;
-$days = isset($_GET['days']) ? $_GET['days'] : 5;
 $city = isset($_GET['city']) ? $_GET['city'] : "Caerleon";
 $tiers = [5, 6, 7, 8];
 

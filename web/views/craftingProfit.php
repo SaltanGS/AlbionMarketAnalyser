@@ -118,27 +118,22 @@
 
 		<table id="mainTable" class="table table-striped table-bordered" style="width:100%">
 			<thead>
-				<tr><th>Groupe</th><th>1st Item</th><th>Price</th><th>2nd Item</th><th>Price</th><th>3rd Item</th><th>Price</th></tr>
+				<tr><th>Name</th><th>Selling price</th><th>Crafting cost</th><th>Raw profit</th><th>Profit %</th><th>Result</th></tr>
 			</thead>
 			<tbody>
 				<?php
-					foreach ($data['mostValuableItems'] as $itemGroup => $tiers) {
+					foreach ($data['profitData'] as $itemName => $tiers) {
 						foreach ($tiers as $tier => $rarities) {
-							foreach ($rarities as $rarity => $itemsType) {
-								foreach ($itemsType as $itemType => $itemsInfos) {
-									if (count($itemsInfos) == 3) {
-										echo '
-											<tr class="dataline">
-												<td><img src="'.Resources::getIcon($itemGroup, $tier, $rarity).'"/>'.$itemGroup.'_T'.$tier.'_R'.$rarity.'</td>
-												<td><img src="'.Items::getIcon($itemsInfos[0]['name'], $tier, $rarity).'"/></td>
-												<td><strong>'.number_format($itemsInfos[0]['price'], 0, '.', ' ').'</strong></td>
-												<td><img src="'.Items::getIcon($itemsInfos[1]['name'], $tier, $rarity).'"/></td>
-												<td>'.number_format($itemsInfos[1]['price'], 0, '.', ' ').'</td>
-												<td><img src="'.Items::getIcon($itemsInfos[2]['name'], $tier, $rarity).'"/></td>
-												<td>'.number_format($itemsInfos[2]['price'], 0, '.', ' ').'</td>
-											</tr>';
-									}
-								}
+							foreach ($rarities as $rarity => $itemsInfos) {
+								echo '
+									<tr class="dataline">
+										<td><img src="'.Items::getIcon($itemName, $tier, $rarity).'"/></td>
+										<td>'.number_format($itemsInfos['sellingPrice'], 0, '.', ' ').'</td>
+										<td>'.number_format($itemsInfos['craftingCost'], 0, '.', ' ').'</td>
+										<td>'.number_format($itemsInfos['rawProfit'], 0, '.', ' ').'</td>
+										<td>'.number_format($itemsInfos['percentProfit'], 2, '.', ' ').'%</td>
+										<td>'.$itemsInfos['result'].'</td>
+									</tr>';
 							}
 						}
 					}
