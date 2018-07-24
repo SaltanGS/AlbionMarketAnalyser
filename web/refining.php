@@ -19,7 +19,9 @@ $city = isset($_GET['city']) ? $_GET['city'] : "Caerleon";
 $resourcesPrices = Resources::getResourcesLatestPrices($city, [2, 3, 4, 5, 6, 7, 8], array_merge([0], $rarities));
 $refiningProfits = Resources::getResourcesRefiningProfit([2, 3, 4, 5, 6, 7, 8], $rarities, $resourcesPrices, $taxe, $focus);
 
-if (isset($_GET['noJson'])) {
+if (isset($_GET['json'])) {
+	print_r(json_encode($refiningProfits));
+} else {
 	echo 'Usage :<br/>
 	noJson : Print this page<br/>
 	rarity=X : Specifie a rarity.<br/>
@@ -30,6 +32,4 @@ if (isset($_GET['noJson'])) {
 	<br/>
 	Data based on Albion Data Client : https://github.com/broderickhyman/albiondata-client';
 	SimpleFront::printRecursiveArray('Refining profit finder', ['Item', 'Tier', 'Rarity', 'Raw resource', 'T-1 refined resource', 'Selling price', 'Taxe', 'Profit', 'Profitable ?'], $refiningProfits);
-} else {
-	print_r(json_encode($refiningProfits));
 }

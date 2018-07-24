@@ -7,6 +7,9 @@ require_once(__DIR__."/../config/databaseConfig.php");
  */
 class Items {
 
+	// Prices are valid during X minutes;
+	private static $priceDurability = 20;
+
 	/**
 	 * Get item icon
 	 */
@@ -26,8 +29,10 @@ class Items {
 	 */
 	public static function getLatestPrices($items, $city, $tiers = null, $rarities = null) {
 
+		$minDate = date(DATE_ATOM, mktime(date("H"), date("i") - static::$priceDurability ));
+
 		$dbConnection = new PDO("mysql:host=".DB_HOST.";port=".DB_PORT.";dbname=".DB_BASE, DB_USER, DB_PASSWORD);
-		$selectStatement = $dbConnection->prepare("SELECT price FROM item_latest_price WHERE item_id = ? AND city = ?");
+		$selectStatement = $dbConnection->prepare("SELECT price FROM item_latest_price WHERE item_id = ? AND city = ? AND updated_at > ?");
 
 		$prices = [];
 
@@ -53,20 +58,20 @@ class Items {
 								}
 							}
 
-							$selectStatement->execute([$itemId.$itemRarityString, $city]);
+							$selectStatement->execute([$itemId.$itemRarityString, $city, $minDate]);
 							if($price = $selectStatement->fetchColumn()) {
 								$prices[$item][$tier][$rarity] = $price;
 							}
 						}
 					} else {
-						$selectStatement->execute([$itemId, $city]);
+						$selectStatement->execute([$itemId, $city, $minDate]);
 						if($price = $selectStatement->fetchColumn()) {
 							$prices[$item][$tier] = $price;
 						}
 					}
 				}
 			} else {
-				$selectStatement->execute([$item, $city]);
+				$selectStatement->execute([$item, $city, $minDate]);
 				if($price = $selectStatement->fetchColumn()) {
 					$prices[$item] = $price;
 				}
