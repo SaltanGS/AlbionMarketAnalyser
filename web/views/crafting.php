@@ -23,7 +23,7 @@
 			$(document).ready(function(){
 				$("#search").on("keyup", function() {
 					var value = $(this).val().toLowerCase();
-					$("#mostValuableItemsTable .dataline").filter(function() {
+					$("#mainTable .dataline").filter(function() {
 						$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 					});
 				});
@@ -32,7 +32,7 @@
 				var resource = $("input[name=resourceFilter]:checked").val();
 				var tier = $("input[name=tierFilter]:checked").val();
 				var rarity = $("input[name=rarityFilter]:checked").val();
-				$("#mostValuableItemsTable .dataline").each(function() {
+				$("#mainTable .dataline").each(function() {
 					if (   $(this).text().indexOf(resource) > -1
 						&& $(this).text().indexOf(tier) > -1
 						&& $(this).text().indexOf(rarity) > -1) {
