@@ -208,7 +208,7 @@ class Items {
 					foreach ($tiers as $tier) {
 						foreach ($rarities as $rarity) {
 
-							if(isset($itemsPrices[$itemName][$tier][$rarity]) && isset($resourcesPrices['PLANKS'][$tier][$rarity]) && isset($resourcesPrices['METALBAR'][$tier][$rarity]) && isset($resourcesPrices['LEATHER'][$tier][$rarity]) && isset($resourcesPrices['CLOTH'][$tier][$rarity]) && isset($resourcesPrices['STONEBLOCK'][$tier][$rarity])) {
+							if (isset($itemsPrices[$itemName][$tier][$rarity]) && isset($resourcesPrices['PLANKS'][$tier][$rarity]) && isset($resourcesPrices['METALBAR'][$tier][$rarity]) && isset($resourcesPrices['LEATHER'][$tier][$rarity]) && isset($resourcesPrices['CLOTH'][$tier][$rarity])) {
 								$sellingPrice = $itemsPrices[$itemName][$tier][$rarity];
 								$resourcesCost =
 									$resourcesPrices['PLANKS'][$tier][$rarity]*$resources[0]
