@@ -214,8 +214,7 @@ class Items {
 									$resourcesPrices['PLANKS'][$tier][$rarity]*$resources[0]
 									+ $resourcesPrices['METALBAR'][$tier][$rarity]*$resources[1]
 									+ $resourcesPrices['LEATHER'][$tier][$rarity]*$resources[2]
-									+ $resourcesPrices['CLOTH'][$tier][$rarity]*$resources[3]
-									+ $resourcesPrices['STONEBLOCK'][$tier][$rarity]*$resources[4];
+									+ $resourcesPrices['CLOTH'][$tier][$rarity]*$resources[3];
 
 								if ($focus) {
 									$craftingCost = $resourcesCost * 0.65;
