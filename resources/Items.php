@@ -8,7 +8,7 @@ require_once(__DIR__."/../config/databaseConfig.php");
 class Items {
 
 	// Prices are valid during X minutes;
-	private static $priceDurability = 60;
+	private static $priceDurability = 6000;
 
 	/**
 	 * Get item icon
@@ -219,7 +219,7 @@ class Items {
 											$resourcesCost += $resourcesPrices[$resourceType][$tier][$rarity]*$resourceAmount ;
 										} else {
 											// The  item is not return if a mandatory component is missing
-											continue ;
+											continue 2 ;
 										}
 									}
 								}
