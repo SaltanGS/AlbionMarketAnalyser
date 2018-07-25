@@ -90,6 +90,10 @@
 			  <img name="T5" src="<?= Items::getIcon('OFF_ORB_MORGANA', 5, 0) ?>" />
 			</label>
 			<label>
+			  <input type="radio" name="tierFilter" value="T4" />
+			  <img name="T4" src="<?= Items::getIcon('OFF_ORB_MORGANA', 4, 0) ?>" />
+			</label>
+			<label>
 			  <input type="radio" name="tierFilter" value="T6" />
 			  <img name="T6" src="<?= Items::getIcon('OFF_ORB_MORGANA', 6, 0) ?>" />
 			</label>
