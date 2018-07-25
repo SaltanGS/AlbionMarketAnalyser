@@ -12,7 +12,7 @@ require_once(__DIR__."/../resources/Autoloader.php");
 
 $rarities = isset($_GET['rarity']) ? [$_GET['rarity']] : [0, 1] ;
 $city = isset($_GET['city']) ? $_GET['city'] : "Caerleon";
-$tiers = [5, 6, 7, 8];
+$tiers = [4, 5, 6, 7, 8];
 
 $items = [
 	'PLANKS' => [

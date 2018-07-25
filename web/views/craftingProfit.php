@@ -98,6 +98,10 @@
 			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 2, 0) ?>" />
 			</label>
 			<label>
+			  <input type="radio" name="tierFilter" value="T4" />
+			  <img name="T4" src="<?= Items::getIcon('OFF_ORB_MORGANA', 4, 0) ?>" />
+			</label>
+			<label>
 			  <input type="radio" name="tierFilter" value="T5" />
 			  <img name="T5" src="<?= Items::getIcon('OFF_ORB_MORGANA', 5, 0) ?>" />
 			</label>
