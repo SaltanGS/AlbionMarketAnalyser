@@ -62,28 +62,28 @@
 			Filter : <input type="text" id="search"> --
 			<label>
 			  <input type="radio" name="resourceFilter" value="" checked/>
-			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 8, 0) ?>" />
+			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 2, 0) ?>" />
 			</label>
 			<label>
 			  <input type="radio" name="resourceFilter" value="PLANKS" />
-			  <img name="PLANKS" src="<?= Resources::getIcon('PLANKS', 8, 0) ?>" />
+			  <img name="PLANKS" src="<?= Resources::getIcon('PLANKS', 7, 0) ?>" />
 			</label>
 			<label>
 			  <input type="radio" name="resourceFilter" value="CLOTH" />
-			  <img name="CLOTH" src="<?= Resources::getIcon('CLOTH', 8, 0) ?>" />
+			  <img name="CLOTH" src="<?= Resources::getIcon('CLOTH', 7, 0) ?>" />
 			</label>
 			<label>
 			  <input type="radio" name="resourceFilter" value="LEATHER" />
-			  <img name="LEATHER" src="<?= Resources::getIcon('LEATHER', 8, 0) ?>" />
+			  <img name="LEATHER" src="<?= Resources::getIcon('LEATHER', 7, 0) ?>" />
 			</label>
 			<label>
 			  <input type="radio" name="resourceFilter" value="METALBAR" />
-			  <img name="METALBAR" src="<?= Resources::getIcon('METALBAR', 8, 0) ?>" />
+			  <img name="METALBAR" src="<?= Resources::getIcon('METALBAR', 7, 0) ?>" />
 			</label>
 			--
 			<label>
 			  <input type="radio" name="tierFilter" value="" checked />
-			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 8, 0) ?>" />
+			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 2, 0) ?>" />
 			</label>
 			<label>
 			  <input type="radio" name="tierFilter" value="T5" />
@@ -104,15 +104,15 @@
 			--
 			<label>
 			  <input type="radio" name="rarityFilter" value="" checked />
-			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 8, 0) ?>" />
+			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 2, 0) ?>" />
 			</label>
 			<label>
 			  <input type="radio" name="rarityFilter" value="R0" />
-			  <img name="R0" src="<?= Items::getIcon('OFF_ORB_MORGANA', 8, 0) ?>" />
+			  <img name="R0" src="<?= Items::getIcon('OFF_ORB_MORGANA', 7, 0) ?>" />
 			</label>
 			<label>
 			  <input type="radio" name="rarityFilter" value="R1" />
-			  <img name="R1" src="<?= Items::getIcon('OFF_ORB_MORGANA', 8, 1) ?>" />
+			  <img name="R1" src="<?= Items::getIcon('OFF_ORB_MORGANA', 7, 1) ?>" />
 			</label>
 		</p>
 
@@ -145,15 +145,5 @@
 				?>
 			</tbody>
 		</table>
-
-		<p>Journals price :<br/>
-			T2 : 370<br/>
-			T3 : 740<br/>
-			T4 : 1480<br/>
-			T5 : 2960<br/>
-			T6 : 5920<br/>
-			T7 : 11840<br/>
-			T8 : 23680<br/>
-		</p>
 	</body>
 </html>

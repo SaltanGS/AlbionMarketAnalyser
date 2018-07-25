@@ -47,5 +47,5 @@ $data['mostValuableItems'] = Items::getMostValuableItem($items, $city, $tiers, $
 if (isset($_GET['json'])) {
 	print_r(json_encode($data['mostValuableItems']));
 } else {
-	SimpleFront::printTemplate('crafting', $data);
+	SimpleFront::printTemplate('craftingGuide', $data);
 }

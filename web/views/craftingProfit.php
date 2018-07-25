@@ -29,11 +29,11 @@
 				});
 			});
 			function setFilter() {
-				var resource = $("input[name=resourceFilter]:checked").val();
+				var type = $("input[name=typeFilter]:checked").val();
 				var tier = $("input[name=tierFilter]:checked").val();
 				var rarity = $("input[name=rarityFilter]:checked").val();
 				$("#mainTable .dataline").each(function() {
-					if (   $(this).text().indexOf(resource) > -1
+					if (   $(this).text().indexOf(type) > -1
 						&& $(this).text().indexOf(tier) > -1
 						&& $(this).text().indexOf(rarity) > -1) {
 						$(this).show();
@@ -43,7 +43,7 @@
 				});
 			}
 			$(document).ready(function(){
-				$("input[name=resourceFilter]").on("change", function(event) {
+				$("input[name=typeFilter]").on("change", function(event) {
 				     setFilter();
 				});
 			});
@@ -61,29 +61,41 @@
 		<p class="filter">
 			Filter : <input type="text" id="search"> --
 			<label>
-			  <input type="radio" name="resourceFilter" value="" checked/>
-			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 8, 0) ?>" />
+			  <input type="radio" name="typeFilter" value="JOURNAL"/>
+			  <img name="JOURNAL" src="<?= Items::getIcon('JOURNAL_TROPHY_GENERAL', 7, 0) ?>" />
+		  	</label> --
+			<label>
+			  <input type="radio" name="typeFilter" value="" checked/>
+			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 2, 0) ?>" />
 			</label>
 			<label>
-			  <input type="radio" name="resourceFilter" value="PLANKS" />
-			  <img name="PLANKS" src="<?= Resources::getIcon('PLANKS', 8, 0) ?>" />
+			  <input type="radio" name="typeFilter" value="BOW" />
+			  <img name="BOW" src="<?= Items::getIcon('2H_BOW', 7, 0) ?>" />
 			</label>
 			<label>
-			  <input type="radio" name="resourceFilter" value="CLOTH" />
-			  <img name="CLOTH" src="<?= Resources::getIcon('CLOTH', 8, 0) ?>" />
+			  <input type="radio" name="typeFilter" value="CLOTH_SET" />
+			  <img name="CLOTH_SET" src="<?= Items::getIcon('ARMOR_CLOTH_SET1', 7, 0) ?>" />
 			</label>
 			<label>
-			  <input type="radio" name="resourceFilter" value="LEATHER" />
-			  <img name="LEATHER" src="<?= Resources::getIcon('LEATHER', 8, 0) ?>" />
+			  <input type="radio" name="typeFilter" value="LEATHER_SET" />
+			  <img name="LEATHER_SET" src="<?= Items::getIcon('ARMOR_LEATHER_SET1', 7, 0) ?>" />
 			</label>
 			<label>
-			  <input type="radio" name="resourceFilter" value="METALBAR" />
-			  <img name="METALBAR" src="<?= Resources::getIcon('METALBAR', 8, 0) ?>" />
+			  <input type="radio" name="typeFilter" value="PLATE_SET" />
+			  <img name="PLATE_SET" src="<?= Items::getIcon('ARMOR_PLATE_SET1', 7, 0) ?>" />
+			</label>
+			<label>
+			  <input type="radio" name="typeFilter" value="GATHERER" />
+			  <img name="GATHERER" src="<?= Items::getIcon('ARMOR_GATHERER_ROCK', 7, 0) ?>" />
+			</label>
+			<label>
+			  <input type="radio" name="typeFilter" value="2H_TOOL" />
+			  <img name="2H_TOOL" src="<?= Items::getIcon('2H_TOOL_SICKLE', 7, 0) ?>" />
 			</label>
 			--
 			<label>
 			  <input type="radio" name="tierFilter" value="" checked />
-			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 8, 0) ?>" />
+			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 2, 0) ?>" />
 			</label>
 			<label>
 			  <input type="radio" name="tierFilter" value="T5" />
@@ -104,15 +116,15 @@
 			--
 			<label>
 			  <input type="radio" name="rarityFilter" value="" checked />
-			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 8, 0) ?>" />
+			  <img name="TRASH" src="<?= Resources::getIcon('TRASH', 2, 0) ?>" />
 			</label>
 			<label>
 			  <input type="radio" name="rarityFilter" value="R0" />
-			  <img name="R0" src="<?= Items::getIcon('OFF_ORB_MORGANA', 8, 0) ?>" />
+			  <img name="R0" src="<?= Items::getIcon('OFF_ORB_MORGANA', 7, 0) ?>" />
 			</label>
 			<label>
 			  <input type="radio" name="rarityFilter" value="R1" />
-			  <img name="R1" src="<?= Items::getIcon('OFF_ORB_MORGANA', 8, 1) ?>" />
+			  <img name="R1" src="<?= Items::getIcon('OFF_ORB_MORGANA', 7, 1) ?>" />
 			</label>
 		</p>
 
@@ -122,33 +134,30 @@
 			</thead>
 			<tbody>
 				<?php
-					foreach ($data['profitData'] as $itemName => $tiers) {
-						foreach ($tiers as $tier => $rarities) {
-							foreach ($rarities as $rarity => $itemsInfos) {
-								echo '
-									<tr class="dataline">
-										<td><img src="'.Items::getIcon($itemName, $tier, $rarity).'"/>'.$itemName.'_T'.$tier.'_R'.$rarity.'</td>
-										<td>'.number_format($itemsInfos['sellingPrice'], 0, '.', ' ').'</td>
-										<td>'.number_format($itemsInfos['craftingCost'], 0, '.', ' ').'</td>
-										<td>'.number_format($itemsInfos['rawProfit'], 0, '.', ' ').'</td>
-										<td>'.number_format($itemsInfos['percentProfit'], 2, '.', ' ').'%</td>
-										<td>'.$itemsInfos['result'].'</td>
-									</tr>';
-							}
-						}
+					foreach ($data['profitData'] as $itemsInfos) {
+						echo '
+							<tr class="dataline">
+								<td><img src="'.Items::getIcon($itemsInfos['name'], $itemsInfos['tier'], $itemsInfos['rarity']).'"/>'.$itemsInfos['name'].'_T'.$itemsInfos['tier'].'_R'.$itemsInfos['rarity'].'</td>
+								<td>'.number_format($itemsInfos['sellingPrice'], 0, '.', ' ').'</td>
+								<td>'.number_format($itemsInfos['craftingCost'], 0, '.', ' ').'</td>
+								<td>'.number_format($itemsInfos['rawProfit'], 0, '.', ' ').'</td>
+								<td>'.number_format($itemsInfos['percentProfit'], 2, '.', ' ').'%</td>
+								<td>'.$itemsInfos['result'].'</td>
+							</tr>';
 					}
 				?>
 			</tbody>
 		</table>
 
-		<p>Journals price :<br/>
-			T2 : 370<br/>
-			T3 : 740<br/>
-			T4 : 1480<br/>
-			T5 : 2960<br/>
-			T6 : 5920<br/>
-			T7 : 11840<br/>
-			T8 : 23680<br/>
+		<h2>Journals informations</h2>
+		<p>
+			<img src="<?= Items::getIcon('JOURNAL_TROPHY_GENERAL', 2, 0) ?>"/> : 370 silvers / 300 fame<br/>
+			<img src="<?= Items::getIcon('JOURNAL_TROPHY_GENERAL', 3, 0) ?>"/> : 740 silvers / 600 fame<br/>
+			<img src="<?= Items::getIcon('JOURNAL_TROPHY_GENERAL', 4, 0) ?>"/> : 1480 silvers / 1200 fame<br/>
+			<img src="<?= Items::getIcon('JOURNAL_TROPHY_GENERAL', 5, 0) ?>"/> : 2960 silvers / 2400 fame<br/>
+			<img src="<?= Items::getIcon('JOURNAL_TROPHY_GENERAL', 6, 0) ?>"/> : 5920 silvers / 4800 fame<br/>
+			<img src="<?= Items::getIcon('JOURNAL_TROPHY_GENERAL', 7, 0) ?>"/> : 11840 silvers / 9600 fame<br/>
+			<img src="<?= Items::getIcon('JOURNAL_TROPHY_GENERAL', 8, 0) ?>"/> : 23680 silvers / 19200 fame<br/>
 		</p>
 	</body>
 </html>
