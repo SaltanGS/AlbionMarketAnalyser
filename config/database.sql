@@ -35,12 +35,13 @@ END; //
 DELIMITER ;
 
 -- Delete datas older than 30 days
+DROP EVENT AutoDeleteOldPrices;
 CREATE EVENT AutoDeleteOldPrices
 	ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 1 DAY
 	ON COMPLETION PRESERVE
 DO
 	DELETE LOW_PRIORITY
 	FROM
-		item_latest_prices
+		item_latest_price
  	WHERE
  		updated_at < DATE_SUB(NOW(), INTERVAL 30 DAY);
