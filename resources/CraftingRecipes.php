@@ -107,6 +107,28 @@ Class CraftingRecipes {
 					'BACKPACK_GATHERER_ORE' => ['PLANKS' => 0, 'METALBAR' => 0, 'LEATHER' => 4, 'CLOTH' => 4, 'STONEBLOCK' => 0]
 				],
 			],
+			'magic' => [
+				'froststaff' => [
+					'2H_GLACIALSTAFF' => ['PLANKS' => 20, 'METALBAR' => 12, 'LEATHER' => 0, 'CLOTH' => 0, 'STONEBLOCK' => 0],
+					'MAIN_FROSTSTAFF' => ['PLANKS' => 16, 'METALBAR' => 8, 'LEATHER' => 0, 'CLOTH' => 0, 'STONEBLOCK' => 0],
+					'2H_FROSTSTAFF' => ['PLANKS' => 20, 'METALBAR' => 12, 'LEATHER' => 0, 'CLOTH' => 0, 'STONEBLOCK' => 0],
+				],
+				'firestaff' => [
+					'MAIN_FIRESTAFF' => ['PLANKS' => 16, 'METALBAR' => 8, 'LEATHER' => 0, 'CLOTH' => 0, 'STONEBLOCK' => 0],
+					'2H_FIRESTAFF' => ['PLANKS' => 20, 'METALBAR' => 12, 'LEATHER' => 0, 'CLOTH' => 0, 'STONEBLOCK' => 0],
+					'2H_INFERNOSTAFF' => ['PLANKS' => 20, 'METALBAR' => 12, 'LEATHER' => 0, 'CLOTH' => 0, 'STONEBLOCK' => 0],
+				],
+				'holystaff' => [
+					'MAIN_HOLYSTAFF' => ['PLANKS' => 16, 'METALBAR' => 0, 'LEATHER' => 0, 'CLOTH' => 8, 'STONEBLOCK' => 0],
+					'2H_HOLYSTAFF' => ['PLANKS' => 20, 'METALBAR' => 0, 'LEATHER' => 0, 'CLOTH' => 12, 'STONEBLOCK' => 0],
+					'2H_DIVINESTAFF' => ['PLANKS' => 20, 'METALBAR' => 0, 'LEATHER' => 0, 'CLOTH' => 12, 'STONEBLOCK' => 0],
+				],
+				'naturestaff' => [
+					'MAIN_NATURESTAFF' => ['PLANKS' => 16, 'METALBAR' => 0, 'LEATHER' => 0, 'CLOTH' => 8, 'STONEBLOCK' => 0],
+					'2H_NATURESTAFF' => ['PLANKS' => 20, 'METALBAR' => 0, 'LEATHER' => 0, 'CLOTH' => 12, 'STONEBLOCK' => 0],
+					'2H_WILDSTAFF' => ['PLANKS' => 20, 'METALBAR' => 0, 'LEATHER' => 0, 'CLOTH' => 12, 'STONEBLOCK' => 0],
+				]
+			],
 			'ranged' => [
 				'bow' => [
 					'2H_BOW' => ['PLANKS' => 32, 'METALBAR' => 0, 'LEATHER' => 0, 'CLOTH' => 0, 'STONEBLOCK' => 0],
