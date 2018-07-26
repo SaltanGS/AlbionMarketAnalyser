@@ -73,6 +73,10 @@
 			  <img name="BOW" src="<?= Items::getIcon('2H_BOW', 7, 0) ?>" />
 			</label>
 			<label>
+			  <input type="radio" name="typeFilter" value="STAFF" />
+			  <img name="STAFF" src="<?= Items::getIcon('2H_FROSTSTAFF', 7, 0) ?>" />
+			</label>
+			<label>
 			  <input type="radio" name="typeFilter" value="CLOTH_SET" />
 			  <img name="CLOTH_SET" src="<?= Items::getIcon('ARMOR_CLOTH_SET1', 7, 0) ?>" />
 			</label>
