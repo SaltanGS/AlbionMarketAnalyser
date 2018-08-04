@@ -8,7 +8,7 @@ require_once(__DIR__."/../config/databaseConfig.php");
 class Items {
 
 	// Prices are valid during X minutes;
-	private static $priceDurability = 60 * 48;
+	private static $priceDurability = 60*48 ;
 
 	/**
 	 * Get item icon
