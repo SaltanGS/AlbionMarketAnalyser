@@ -22,20 +22,19 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$("#search").on("keyup", function() {
-					var value = $(this).val().toLowerCase();
-					$("#mainTable .dataline").filter(function() {
-						$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-					});
+					setFilter();
 				});
 			});
 			function setFilter() {
 				var type = $("input[name=typeFilter]:checked").val();
 				var tier = $("input[name=tierFilter]:checked").val();
 				var rarity = $("input[name=rarityFilter]:checked").val();
+				var search = $("#search").val().toLowerCase();
 				$("#mainTable .dataline").each(function() {
 					if (   $(this).text().indexOf(type) > -1
 						&& $(this).text().indexOf(tier) > -1
-						&& $(this).text().indexOf(rarity) > -1) {
+						&& $(this).text().indexOf(rarity) > -1
+						&& $(this).text().toLowerCase().indexOf(search) > -1) {
 						$(this).show();
 					} else {
 						$(this).hide();
